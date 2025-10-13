@@ -1,97 +1,29 @@
 #include<bits/stdc++.h>
-
-int string2Int(std::string str)
-{
-    int res = 0;
-    for (const auto &i : str) res = res * 10 + (i-'0');
-    return res;
-}
-
-std::string int2String(int num, int len)
-{
-    std::string s;
-    while (num)
-    {
-        s +=  (num % 10) + '0';
-        num /= 10;
-    }
-    while (s.size() < len) s += '0';
-    std::reverse(s.begin(),s.end());
-    return s;
-}
-
-bool isLeapYear(int year)
-{
-    if (year % 4 ==0 && year % 100 != 0 || year % 400 == 0) return true;
-    else return false;
-}
-
-bool isValideDate(int year, int month, int day)
-{
-    int days[13] = {0,31,28,31,30,31,30,31,31,30,31,30,31};
-    if (isLeapYear(year)) days[2] = 29;
-    return day < days[month];
-}
-
-bool isPalindromeString(std::string str)
-{
-    int left = 0,right = str.size() -1;
-    while (left < right)
-    {
-        if (str[left++] != str[right--])return false;
-    }
-    return true;
-}
-
-bool isABABBABAString(std::string str)
-{
-    // 使用时首先需要通过 isPalindromeString 函数保证传入的 str 是一个回文串
-    // 即至少为 ABCDDCBA
-    // 此时只需要判断 A == C && B == D是否成立
-    if (str[0] == str[2] && str[1] == str[3]) return true;
-    else return false;
-}
-
 int main()
 {
-    std::ios::sync_with_stdio(false),std::cin.tie(nullptr),std::cout.tie(nullptr);
-    std::string s;
-    std::cin>>s;
-    int year = string2Int(s.substr(0,4));
-    int month = string2Int(s.substr(4,2));
-    int day = string2Int(s.substr(6,2));
-
-    bool ans1 = false, ans2 = false;
-    for (int i = year; i <= 9999; i++)
+    double n,t;
+    std::cin>>n>>t;
+    double base = 4000;
+    double ans = 0;
+    if(n>=6)
     {
-        std::string s_year = int2String(i,4);
-        for (int j = 1; j <= 12; j ++)
-        {
-            if (i == year && j < month) continue;
-            std::string s_month = int2String(j,2);
-            for (int k = 1; k <= 31; k ++)
-            {
-                if (i == year && j == month && k <= day) continue;
-                if (!isValideDate(i,j,k)) continue;
-                std::string s_day = int2String(k,2);
-                // 日期合法，组成字符串
-                std::string date = s_year + s_month + s_day;
-                if (isPalindromeString(date))
-                {
-                    if (ans1 == false)
-                    {
-                        ans1 = true;
-                        std::cout<<date<<'\n';
-                    }
-
-                    if (isABABBABAString(date) && ans2 == false)
-                    {
-                        std::cout<<date<<'\n';
-                        return 0;
-                    }
-                }
-            }
-        }
+        if(t>=3.5) ans = std::max(ans,(n-2)/2*200*20*1.4);
+        else if(t>=3) ans = std::max(ans,(n-2)/2*200*20*1.2);
+        else if(t>=2.5) ans = std::max(ans,(n-2)/2*200*20.0);
     }
+    if(n>=4)
+    {
+        if(t>=3) ans = std::max(ans,1100.0);
+        else if(t>=2.5) ans = std::max(ans,900.0);
+        else if(t>=2) ans = std::max(ans,700.0);
+    }
+    if(n>=3)
+    {
+        if(t>=3) ans = std::max(ans,500.0);
+        else if(t>=2.5) ans = std::max(ans,400.0);
+        else if(t>=2) ans = std::max(ans,300.0);
+    }
+    if(n>=2&&t>=2.5) ans = std::max(ans,200.0);
+    std::cout<<std::fixed<<std::setprecision(2)<<ans+base<<'\n';
     return 0;
 }
