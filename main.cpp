@@ -1,10 +1,18 @@
 #include<bits/stdc++.h>
 const int N = 2e5+3;
-int pre[N];
+int pre[N], size[N];
 
 int getRoot(int x)
 {
-    return pre[x] = (pre[x] == x ? x : getRoot(pre[x]));
+    return pre[x] == x ? x : getRoot(pre[x]);
+}
+void merge(int x, int y)
+{
+    int rx = getRoot(x), ry = getRoot(y);
+    if (size[rx] > size[ry]) std::swap(rx, ry);
+
+    pre[rx] = ry;
+    size[ry] += size[rx];
 }
 
 int main()
@@ -12,12 +20,12 @@ int main()
     std::ios::sync_with_stdio(false),std::cin.tie(nullptr),std::cout.tie(nullptr);
     int n, m;
     std::cin >> n >> m;
-    for (int i = 1; i <= n; i++) pre[i] = i;
+    for (int i = 1; i <= n; i++) pre[i] = i, size[i] = 1;
     for (int i = 1; i <= m; i++)
     {
         int op, x, y;
         std::cin >> op >> x >> y;
-        if (op == 1) pre[getRoot(x)] = getRoot(y);
+        if (op == 1) merge(x, y);
         else
         {
             if (getRoot(x) == getRoot(y)) std::cout << "YES" << '\n';
