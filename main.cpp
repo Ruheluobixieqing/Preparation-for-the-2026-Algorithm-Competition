@@ -1,36 +1,26 @@
-#include<bits/stdc++.h>
-const int N = 2e5+3;
-int pre[N], size[N];
+#include <bits/stdc++.h>
+const int N = 2e6+3;
+int a[N],pre[N];
 
 int getRoot(int x)
 {
-    return pre[x] == x ? x : getRoot(pre[x]);
-}
-void merge(int x, int y)
-{
-    int rx = getRoot(x), ry = getRoot(y);
-    if (size[rx] > size[ry]) std::swap(rx, ry);
-
-    pre[rx] = ry;
-    size[ry] += size[rx];
+    return pre[x] = (pre[x] == x ? x : getRoot(pre[x]));
 }
 
 int main()
 {
-    std::ios::sync_with_stdio(false),std::cin.tie(nullptr),std::cout.tie(nullptr);
-    int n, m;
-    std::cin >> n >> m;
-    for (int i = 1; i <= n; i++) pre[i] = i, size[i] = 1;
-    for (int i = 1; i <= m; i++)
+    std::ios::sync_with_stdio(false), std::cin.tie(nullptr), std::cout.tie(nullptr);
+    int n;
+    std::cin >> n;
+    for (int i = 1; i <= n; i++) std::cin >> a[i];
+    for (int i = 1; i <= 2e6; i++) pre[i] = i;
+
+    for (int i = 1; i <= n; i++)
     {
-        int op, x, y;
-        std::cin >> op >> x >> y;
-        if (op == 1) merge(x, y);
-        else
-        {
-            if (getRoot(x) == getRoot(y)) std::cout << "YES" << '\n';
-            else std::cout << "NO" << '\n';
-        }
+        std::cout << getRoot(a[i]) << ' ';
+
+        int x = getRoot(a[i]);
+        pre[getRoot(x)] = getRoot(x + 1);
     }
     return 0;
 }
