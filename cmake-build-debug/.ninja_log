@@ -1,4 +1,6 @@
 # ninja log v6
-24	4220	7862082451746631	CMakeFiles/Preparation_for_the_2026_Algorithm_Competition.dir/main.cpp.obj	b255718a1b414aa5
-4221	4783	7862082493719683	Preparation_for_the_2026_Algorithm_Competition.exe	efe60ef49980b699
+3	646	7862111982773066	CMakeFiles/Preparation_for_the_2026_Algorithm_Competition.dir/main.cpp.obj	b255718a1b414aa5
+2	293	7862170629022005	C:/Users/Bolide/Desktop/C++ Code Files/Preparation-for-the-2026-Algorithm-Competition/cmake-build-debug/cmake_install.cmake	425a24c28edd2746
+647	723	7862111989206682	Preparation_for_the_2026_Algorithm_Competition.exe	efe60ef49980b699
 4	560	7862089030982126	CMakeFiles/Preparation_for_the_2026_Algorithm_Competition.dir/template/quickSort.cpp.obj	bbd87df62f2ab613
+2	293	7862170629052058	build.ninja	425a24c28edd2746

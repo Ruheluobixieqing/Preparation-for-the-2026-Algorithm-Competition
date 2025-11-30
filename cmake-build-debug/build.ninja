@@ -56,13 +56,6 @@ build CMakeFiles/Preparation_for_the_2026_Algorithm_Competition.dir/main.cpp.obj
   OBJECT_DIR = CMakeFiles\Preparation_for_the_2026_Algorithm_Competition.dir
   OBJECT_FILE_DIR = CMakeFiles\Preparation_for_the_2026_Algorithm_Competition.dir
 
-build CMakeFiles/Preparation_for_the_2026_Algorithm_Competition.dir/template/quickSort.cpp.obj: CXX_COMPILER__Preparation_for_the_2026_Algorithm_Competition_unscanned_Debug C$:/Users/Bolide/Desktop/C++$ Code$ Files/Preparation-for-the-2026-Algorithm-Competition/template/quickSort.cpp || cmake_object_order_depends_target_Preparation_for_the_2026_Algorithm_Competition
-  CONFIG = Debug
-  DEP_FILE = CMakeFiles\Preparation_for_the_2026_Algorithm_Competition.dir\template\quickSort.cpp.obj.d
-  FLAGS = -g -std=gnu++11 -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles\Preparation_for_the_2026_Algorithm_Competition.dir
-  OBJECT_FILE_DIR = CMakeFiles\Preparation_for_the_2026_Algorithm_Competition.dir\template
-
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Preparation_for_the_2026_Algorithm_Competition
@@ -71,7 +64,7 @@ build CMakeFiles/Preparation_for_the_2026_Algorithm_Competition.dir/template/qui
 #############################################
 # Link the executable Preparation_for_the_2026_Algorithm_Competition.exe
 
-build Preparation_for_the_2026_Algorithm_Competition.exe: CXX_EXECUTABLE_LINKER__Preparation_for_the_2026_Algorithm_Competition_Debug CMakeFiles/Preparation_for_the_2026_Algorithm_Competition.dir/main.cpp.obj CMakeFiles/Preparation_for_the_2026_Algorithm_Competition.dir/template/quickSort.cpp.obj
+build Preparation_for_the_2026_Algorithm_Competition.exe: CXX_EXECUTABLE_LINKER__Preparation_for_the_2026_Algorithm_Competition_Debug CMakeFiles/Preparation_for_the_2026_Algorithm_Competition.dir/main.cpp.obj
   CONFIG = Debug
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
