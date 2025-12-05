@@ -1,3 +1,6 @@
+# KMP 算法（模式串匹配）
+
+```cpp
 #include <bits/stdc++.h>
 
 // 构造模式串 p 的 next 表
@@ -51,3 +54,4 @@ int main()
     else std::cout << -1;
     return 0;
 }
+```
