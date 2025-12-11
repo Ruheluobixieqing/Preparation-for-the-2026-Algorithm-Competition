@@ -1,17 +1,30 @@
 #include <bits/stdc++.h>
+const int N = 1e3+4;
 
-std::string int_to_binary_string(int num, int n) {
-    std::string result;
-    for (int i = n - 1; i >= 0; --i) {
-        result += (num & (1 << i)) ? '1' : '0';
+int main(){
+  std::ios::sync_with_stdio(false),std::cin.tie(nullptr),std::cout.tie(nullptr);
+  int n;
+  std::cin>>n;
+  std::vector<int> v(n+1);
+  std::vector<int> dp(n+1,1);
+  std::vector<int> ans(n+1,1);
+  int _ans = 1;
+  for(int i = 1; i <= n; i++) std::cin >> v[i];
+  for(int i = 1; i <= n; i++){
+    for(int j = 1; j < i; j++){
+      if(v[i] > v[j] && dp[j] + 1 > dp[i]){
+        dp[i] = dp[j] + 1;
+        ans[i] = ans[j];
+      }
+      if (v[i] > v[j] && dp[j] + 1 == dp[i])
+      {
+        ans[i] += ans[j];
+      }
     }
-    return result;
-}
-
-int main() {
-    int num = 156;
-    int n = 8;
-    std::string binary = int_to_binary_string(num, n);
-    std::cout << binary << std::endl;  // 输出：00000101
-    return 0;
+    if (_ans < dp[i]) _ans = dp[i];
+  }
+  int cnt = 0;
+  for (const auto &e: ans) if (e == _ans) cnt++;
+  std::cout << cnt << '\n';
+  return 0;
 }
