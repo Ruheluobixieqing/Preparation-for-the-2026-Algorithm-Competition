@@ -1,3 +1,8 @@
+# vector 容器
+
+手写 vector 容器
+
+```cpp
 #include <bits/stdc++.h>
 
 /* Vector 容器
@@ -259,3 +264,4 @@ int main(){
     std::cout<< a.capacity() << '\n';
     return 0;
 }
+```
