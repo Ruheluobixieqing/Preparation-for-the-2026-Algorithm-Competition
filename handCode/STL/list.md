@@ -1,3 +1,8 @@
+# list 容器
+
+手写 list 容器
+
+```cpp
 #include <bits/stdc++.h>
 
 template <typename T>
@@ -179,3 +184,4 @@ int main(){
     for (auto x : myList) std::cout << x << ' ';
     return 0;
 }
+```
