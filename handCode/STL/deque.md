@@ -1,3 +1,6 @@
+# deque å®¹å™¨
+
+```cpp
 #include <bits/stdc++.h>
 
 template <typename T, size_t BufSize = 512>
@@ -8,19 +11,19 @@ public:
     using reference          = T&;
     using size_type          = size_t;
 
-    // µü´úÆ÷£¨ºËĞÄ£¡Ö§³ÖËæ»ú·ÃÎÊ£©
+    // è¿­ä»£å™¨ï¼ˆæ ¸å¿ƒï¼æ”¯æŒéšæœºè®¿é—®ï¼‰
     struct iterator {
-        T** m_node;      // Ö¸ÏòÖĞ¿ØÆ÷µÄÄ³¸öÖ¸Õë£¨Ö¸ÏòÄÄ¸ö¿é£©
-        T*  m_cur;       // Ö¸Ïò¿éÄÚµÄµ±Ç°ÔªËØ
-        T*  m_first;     // ¿éµÄÆğÊ¼
-        T*  m_last;      // ¿éµÄ½áÊø£¨ÉÚ±ø£©
+        T** m_node;      // æŒ‡å‘ä¸­æ§å™¨çš„æŸä¸ªæŒ‡é’ˆï¼ˆæŒ‡å‘å“ªä¸ªå—ï¼‰
+        T*  m_cur;       // æŒ‡å‘å—å†…çš„å½“å‰å…ƒç´ 
+        T*  m_first;     // å—çš„èµ·å§‹
+        T*  m_last;      // å—çš„ç»“æŸï¼ˆå“¨å…µï¼‰
 
-        // ¹¹Ôìº¯Êı
+        // æ„é€ å‡½æ•°
         iterator() : m_node(nullptr), m_cur(nullptr), m_first(nullptr), m_last(nullptr) {}
 
         iterator(T** node, T* cur): m_node(node), m_cur(cur), m_first(*node), m_last(*node + BufSize) {}
 
-        // ½âÒıÓÃ
+        // è§£å¼•ç”¨
         reference operator*() const {
             return *m_cur;
         }
@@ -29,11 +32,11 @@ public:
             return m_cur;
         }
 
-        // Ç°ÖÃ ++
+        // å‰ç½® ++
         iterator& operator++() {
             ++m_cur;
             if (m_cur == m_last) {
-                // ËµÃ÷ÊÇµ±Ç°¿éµÄ×îºóÒ»¸öÎ»ÖÃ
+                // è¯´æ˜æ˜¯å½“å‰å—çš„æœ€åä¸€ä¸ªä½ç½®
                 m_node++;
                 m_first = *m_node;
                 m_last = *m_node + BufSize;
@@ -42,18 +45,18 @@ public:
             return *this;
         }
 
-        // ºóÖÃ ++
+        // åç½® ++
         iterator operator++(int) {
             iterator tmp = *this;
-            // µ÷ÓÃÇ°ÖÃ ++ ÒÆ¶¯
+            // è°ƒç”¨å‰ç½® ++ ç§»åŠ¨
             ++(*this);
             return tmp;
         }
 
-        // Ç°ÖÃ --
+        // å‰ç½® --
         iterator& operator--() {
             if (m_cur == m_first) {
-                // ËµÃ÷ÊÇµ±Ç°¿éµÄµÚÒ»¸öÎ»ÖÃ
+                // è¯´æ˜æ˜¯å½“å‰å—çš„ç¬¬ä¸€ä¸ªä½ç½®
                 --m_node;
                 m_first = *m_node;
                 m_last = *m_node + BufSize;
@@ -63,22 +66,22 @@ public:
             return *this;
         }
 
-        // ºóÖÃ --
+        // åç½® --
         iterator operator--(int) {
             iterator tmp = *this;
             --(*this);
             return tmp;
         }
 
-        // Ëæ»ú·ÃÎÊ
+        // éšæœºè®¿é—®
         iterator& operator+=(size_type n) {
             size_type offset = n + (m_cur - m_first);
             if (offset >=0 && offset < BufSize) {
-                // ËµÃ÷»¹ÔÚÍ¬Ò»¿éÄÚ
+                // è¯´æ˜è¿˜åœ¨åŒä¸€å—å†…
                 m_cur += n;
             }
             else {
-                // ÏÈ¼ÆËãÔÚÄÄ¸ö¿é£¬ÕâÀïĞèÒª×¢Òâ¸ºÊıÏòÁãÈ¡ÕûµÄÎÊÌâ£¬Òò´Ë»¹Òª¶îÍâ - 1
+                // å…ˆè®¡ç®—åœ¨å“ªä¸ªå—ï¼Œè¿™é‡Œéœ€è¦æ³¨æ„è´Ÿæ•°å‘é›¶å–æ•´çš„é—®é¢˜ï¼Œå› æ­¤è¿˜è¦é¢å¤– - 1
                 size_type blockOffset = offset > 0 ? offset / BufSize : - ((- offset - 1) / BufSize) - 1;
                 m_node += blockOffset;
                 m_first = *m_node;
@@ -124,30 +127,30 @@ public:
     };
 
 private:
-    // ÖĞ¿ØÆ÷£¬´æ´¢Ö¸Ïò¸÷¿éµÄÖ¸Õë
-    T** m_map;                   // Ö¸ÕëÊı×é
-    size_type m_mapSize;         // ÖĞ¿ØÆ÷ÈİÁ¿
-    size_type m_numElements;     // ÔªËØ×ÜÊı
+    // ä¸­æ§å™¨ï¼Œå­˜å‚¨æŒ‡å‘å„å—çš„æŒ‡é’ˆ
+    T** m_map;                   // æŒ‡é’ˆæ•°ç»„
+    size_type m_mapSize;         // ä¸­æ§å™¨å®¹é‡
+    size_type m_numElements;     // å…ƒç´ æ€»æ•°
 
     iterator m_start;
     iterator m_finish;
 
-    // ·ÖÅäĞÂ¿é
+    // åˆ†é…æ–°å—
     T* allocate_new_block() {
         return new T[BufSize];
     }
 
-    // ÊÍ·Å¿é
+    // é‡Šæ”¾å—
     void delete_block(T* p) {
         delete [] p;
     }
 
-    // ³õÊ¼»¯ Deque
+    // åˆå§‹åŒ– Deque
     void init() {
         m_mapSize = 8;
-        m_map = new T*[m_mapSize]();        // Áã»¯³õÊ¼
+        m_map = new T*[m_mapSize]();        // é›¶åŒ–åˆå§‹
 
-        // ÖĞ¼ä¿ªÊ¼£¬Á½¶ËÔ¤Áô¿Õ¼ä
+        // ä¸­é—´å¼€å§‹ï¼Œä¸¤ç«¯é¢„ç•™ç©ºé—´
         T** start_node = m_map + ( m_mapSize >> 1 );
         *start_node = allocate_new_block();
 
@@ -156,7 +159,7 @@ private:
         m_numElements = 0;
     }
 
-    // ÖĞ¿ØÆ÷À©Èİ
+    // ä¸­æ§å™¨æ‰©å®¹
     void reallocate_map(size_type needNodes, bool addAtFront) {
         size_type oldNumNodes = m_finish.m_node - m_start.m_node + 1;
         size_type newNumNodes = oldNumNodes + needNodes;
@@ -182,11 +185,11 @@ private:
             m_mapSize = newMapSize;
         }
 
-        // Í³Ò»¸üĞÂµü´úÆ÷£¨¹Ø¼ü£¡£©
+        // ç»Ÿä¸€æ›´æ–°è¿­ä»£å™¨ï¼ˆå…³é”®ï¼ï¼‰
         m_start.m_node = new_start;
         m_finish.m_node = new_start + oldNumNodes - 1;
 
-        // ±£³Ö¿éÄÚÖ¸ÕëÓĞĞ§
+        // ä¿æŒå—å†…æŒ‡é’ˆæœ‰æ•ˆ
         m_start.m_first = *m_start.m_node;
         m_start.m_last = m_start.m_first + BufSize;
         m_finish.m_first = *m_finish.m_node;
@@ -203,7 +206,7 @@ private:
     }
 
 public:
-    // ¹¹Ôìº¯Êı
+    // æ„é€ å‡½æ•°
     Deque() {
         init();
     }
@@ -232,7 +235,7 @@ public:
         return m_numElements == 0;
     }
 
-    // Ëæ»ú·ÃÎÊ
+    // éšæœºè®¿é—®
     reference operator[](size_type n) {
         return *(m_start + n);
     }
@@ -246,7 +249,7 @@ public:
     }
 
     void clear() {
-        // Ïú»ÙËùÓĞÔªËØ£¬µ«±£Áô¿é½á¹¹
+        // é”€æ¯æ‰€æœ‰å…ƒç´ ï¼Œä½†ä¿ç•™å—ç»“æ„
         while (!empty()) pop_back();
     }
 
@@ -254,7 +257,7 @@ public:
         if (m_finish.m_cur != m_finish.m_first) {
             --m_finish.m_cur;
         } else {
-            // ÊÍ·Å¿Õ¿é
+            // é‡Šæ”¾ç©ºå—
             delete_block(*m_finish.m_node);
             --m_finish.m_node;
             m_finish.m_first = *m_finish.m_node;
@@ -279,12 +282,12 @@ public:
 
     void push_back(const T& x) {
         if (m_finish.m_cur != m_finish.m_last - 1) {
-            // ËµÃ÷µ±Ç°¿éÈÔÓĞ¿Õ¼ä
+            // è¯´æ˜å½“å‰å—ä»æœ‰ç©ºé—´
             *m_finish.m_cur = x;
             ++ m_finish.m_cur;
         }
         else {
-            // ĞèÒªÊ¹ÓÃĞÂ¿é
+            // éœ€è¦ä½¿ç”¨æ–°å—
             if (m_finish.m_node + 1 == m_map + m_mapSize) reallocate_map(1, false);
 
             *(++m_finish.m_node) = allocate_new_block();
@@ -298,10 +301,10 @@ public:
 
     void push_front(const T& x) {
         if (m_start.m_cur != m_start.m_first) {
-            // µ±Ç°¿éÇ°Ãæ»¹ÓĞ¿Õ¼ä
+            // å½“å‰å—å‰é¢è¿˜æœ‰ç©ºé—´
             *--m_start.m_cur = x;
         } else {
-            // ĞèÒªĞÂ¿é
+            // éœ€è¦æ–°å—
             if (m_start.m_node == m_map) reallocate_map(1, true);
             *(--m_start.m_node) = allocate_new_block();
             m_start.m_first = *m_start.m_node;
@@ -317,7 +320,7 @@ int main(){
     std::ios::sync_with_stdio(false),std::cin.tie(nullptr),std::cout.tie(nullptr);
     Deque<int> dq;
 
-    // ²âÊÔÍ·Î²²åÈë
+    // æµ‹è¯•å¤´å°¾æ’å…¥
     dq.push_back(1);   // [1]
     dq.push_front(0);  // [0, 1]
     dq.push_back(2);   // [0, 1, 2]
@@ -325,17 +328,17 @@ int main(){
 
     std::cout << "Size: " << dq.size() << "\n";  // 4
 
-    // ²âÊÔËæ»ú·ÃÎÊ
+    // æµ‹è¯•éšæœºè®¿é—®
     std::cout << "dq[0]=" << dq[0] << ", dq[2]=" << dq[2] << "\n";  // -1, 1
 
-    // ²âÊÔµü´úÆ÷±éÀú
-    std::cout << "±éÀú: ";
+    // æµ‹è¯•è¿­ä»£å™¨éå†
+    std::cout << "éå†: ";
     for (auto it = dq.begin(); it != dq.end(); ++it) {
         std::cout << *it << " ";
     }
     std::cout << "\n";  // -1 0 1 2
 
-    // ²âÊÔÍ·Î²É¾³ı
+    // æµ‹è¯•å¤´å°¾åˆ é™¤
     dq.pop_front();  // [0, 1, 2]
     dq.pop_back();   // [0, 1]
 
@@ -346,3 +349,4 @@ int main(){
     std::cout << "\n";  // 0 1
     return 0;
 }
+```
