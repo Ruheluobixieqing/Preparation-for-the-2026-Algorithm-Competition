@@ -1,3 +1,6 @@
+# stack 容器
+
+```cpp
 #include <bits/stdc++.h>
 
 // 底层容器一般是 deque
@@ -187,3 +190,4 @@ int main(){
 
     return 0;
 }
+```
